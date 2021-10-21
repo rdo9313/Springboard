@@ -1,0 +1,11 @@
+.linethrough {
+  text-decoration: line-through;
+}
+
+i {
+  margin-left: 0.5rem;
+}
+
+.checked {
+  margin-left: 0.5rem;
+}
