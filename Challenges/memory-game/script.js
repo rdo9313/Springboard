@@ -1,4 +1,7 @@
 const gameContainer = document.getElementById("game");
+let count = 0;
+let firstCard;
+let freezeCards = false;
 
 const COLORS = [
   "red",
@@ -57,10 +60,36 @@ function createDivsForColors(colorArray) {
   }
 }
 
+function showCard(card) {
+  count++;
+  card.classList.toggle("flipped");
+  card.style.backgroundColor = card.classList[0];
+}
+
+function hideCard(card) {
+  card.classList.toggle("flipped");
+  card.style.backgroundColor = "transparent";
+}
+
 // TODO: Implement this function!
 function handleCardClick(event) {
-  // you can use event.target to see which element was clicked
-  console.log("you just clicked", event.target);
+  if (freezeCards) return;
+  if (event.target.classList.length === 1) {
+    showCard(event.target);
+  }
+  if (count === 1) {
+    firstCard = event.target;
+  } else {
+    freezeCards = true;
+    setTimeout(() => {
+      if (!(firstCard.classList[0] === event.target.classList[0] && firstCard.classList[1] === event.target.classList[1])) {
+        hideCard(firstCard);
+        hideCard(event.target);
+      }
+      freezeCards = false;
+    }, 1000)
+    count = 0;
+  }
 }
 
 // when the DOM loads
